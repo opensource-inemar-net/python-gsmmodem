@@ -518,6 +518,17 @@ class GsmModem(SerialComms):
         return self.write('AT+CGMI')[0]
 
     @property
+    def time(self):
+        """ :return: The modem's internal time """
+        return self.write('AT+CCLK?')[0]
+        
+        
+    def timeActivateNITZ(self):
+        """ Activate Nitz for the modem """
+        self.write('AT#NITZ=1')
+
+
+    @property
     def model(self):
         """ :return: The modem's model name """
         return self.write('AT+CGMM')[0]
