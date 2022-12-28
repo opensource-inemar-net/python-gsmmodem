@@ -525,7 +525,7 @@ class GsmModem(SerialComms):
         
     def timeActivateNITZ(self):
         """ Activate Nitz for the modem """
-        self.write('AT#NITZ=1')
+        self.write('AT+CTZU=1')
 
 
     @property
