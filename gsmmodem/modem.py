@@ -526,6 +526,16 @@ class GsmModem(SerialComms):
     def timeActivateNITZ(self):
         """ Activate Nitz for the modem """
         return self.write('AT+CTZU=1')
+    
+    @property
+    def accessTechnology(self):
+        return self.write('AT+CNMP?')
+    
+    def accessTechnolgySet(self,type):
+        return self.write('AT+CNMP='+type)
+    
+    def accessTechnologyList(self):
+        return self.write('AT+CNMP=?')
 
 
     @property
