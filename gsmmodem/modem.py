@@ -525,7 +525,7 @@ class GsmModem(SerialComms):
         
     def timeActivateNITZ(self):
         """ Activate Nitz for the modem """
-        self.write('AT+CTZU=1')
+        return self.write('AT+CTZU=1')
 
 
     @property
@@ -916,7 +916,7 @@ class GsmModem(SerialComms):
         if self.smsTextMode:
             # Send SMS via AT commands
             self.write('AT+CMGS="{0}"'.format(destination), timeout=5, expectedResponseTermSeq='> ')
-            result = lineStartingWith('+CMGS:', self.write(text, timeout=35, writeTerm=CTRLZ))
+            result = lineStartingWith('+CMGS:', self.write(text, timeout=85, writeTerm=CTRLZ))
         else:
             # Check encoding
             try:
@@ -938,7 +938,7 @@ class GsmModem(SerialComms):
             # Send SMS PDUs via AT commands
             for pdu in pdus:
                 self.write('AT+CMGS={0}'.format(pdu.tpduLength), timeout=5, expectedResponseTermSeq='> ')
-                result = lineStartingWith('+CMGS:', self.write(str(pdu), timeout=35, writeTerm=CTRLZ)) # example: +CMGS: xx
+                result = lineStartingWith('+CMGS:', self.write(str(pdu), timeout=85, writeTerm=CTRLZ)) # example: +CMGS: xx
 
         if result == None:
             raise CommandError('Modem did not respond with +CMGS response')
